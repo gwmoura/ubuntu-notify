@@ -18,5 +18,5 @@ loop do
   else
     Libnotify.show :summary => "#{Time.now}", :body => config["fail_message"]
   end
-  sleep 300
+  sleep config["sleep"]
 end
