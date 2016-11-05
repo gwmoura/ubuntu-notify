@@ -5,7 +5,7 @@ require 'openssl'
 require 'nokogiri'
 require 'yaml'
 
-config = YAML.load_file('config.yaml')
+config = YAML.load(ERB.new(File.read("config.yaml")).result)
 
 loop do
   url = config["url"]
