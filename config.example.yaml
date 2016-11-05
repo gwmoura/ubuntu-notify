@@ -1,0 +1,4 @@
+url: https://sandbox.pagseguro.uol.com.br/
+text: "No momento o ambiente de testes do PagSeguro está indisponível"
+success_message: "Pagseguro sandbox disponível!!! :D"
+fail_message: "Pagseguro insdisponível ainda :("

@@ -3,19 +3,20 @@ require 'libnotify'
 require 'open-uri'
 require 'openssl'
 require 'nokogiri'
+require 'yaml'
 
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+config = YAML.load_file('config.yaml')
 
 loop do
-  url = "https://sandbox.pagseguro.uol.com.br/"
+  url = config["url"]
   puts "checking #{url} - #{Time.now}"
   doc = Nokogiri::HTML(open(url))
   body_text = doc.css("body").text
-  if !body_text.include?("No momento o ambiente de testes do PagSeguro está indisponível")
-    Libnotify.show :summary => "#{Time.now}", :body => "Pagseguro sandbox disponível!!! :D", :timeout => 5
+  if !body_text.include?(config["text"])
+    Libnotify.show :summary => "#{Time.now}", :body => config["success_message"], :timeout => 2
     break
   else
-    Libnotify.show :summary => "#{Time.now}", :body => "Pagseguro insdisponível ainda :("
+    Libnotify.show :summary => "#{Time.now}", :body => config["fail_message"]
   end
   sleep 300
 end
